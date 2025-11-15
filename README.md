@@ -14,21 +14,17 @@ sempre citando as fontes usadas na resposta.
 
 ## Sumário
 
+- [Sumário](#sumário)
 - [Arquitetura](#arquitetura)
 - [Requisitos](#requisitos)
 - [Configuração do Back-end (FastAPI/RAG)](#configuração-do-back-end-fastapirag)
-  - [.env (OpenAI ou Ollama)](#env-openai-ou-ollama)
-  - [Índice (scraping) – automático vs manual](#índice-scraping--automático-vs-manual)
-  - [Subir API (dev)](#subir-api-dev)
-  - [Endpoints](#endpoints)
+- [Índice (scraping) – automático vs manual](#índice-scraping--automático-vs-manual)
+- [Subir API (dev)](#subir-api-dev)
+- [Endpoints](#endpoints)
 - [Front-end (Flutter)](#front-end-flutter)
-  - [Configurar URL da API](#configurar-url-da-api)
-  - [Instalar dependências & rodar](#instalar-dependências--rodar)
-  - [Build de produção (web)](#build-de-produção-web)
-- [Feature set do front](#feature-set-do-front)
+- [Instalar dependências \& rodar](#instalar-dependências--rodar)
 - [CORS](#cors)
-- [Proxy (Windows/PowerShell)](#proxy-windowspowershell)
-- [Formatação & TOC no VS Code](#formatação--toc-no-vs-code)
+- [Para atualizar o sumário:](#para-atualizar-o-sumário)
 - [Exemplos de uso](#exemplos-de-uso)
 - [Troubleshooting](#troubleshooting)
 
@@ -62,6 +58,8 @@ cloudwalk-chatbot/
 │  └─ pubspec.yaml
 ├─ .env                     # Config do LLM (OpenAI/Ollama) + ajustes
 └─ requirements.txt
+
+```
 
 ---
 
@@ -114,7 +112,7 @@ cloudwalk-chatbot/
     OPENAI_MODEL=gpt-4o-mini
     EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
 
- ---
+---
 
 ## Índice (scraping) – automático vs manual
 
@@ -211,6 +209,7 @@ cloudwalk-chatbot/
 ---
 
 ## Front-end (Flutter)
+
     Configurar URL da API
 
     Edite cloudwalk_chat/lib/api/chat_api.dart:
@@ -414,5 +413,7 @@ cloudwalk-chatbot/
         Confirme que o domínio do front está presente em allow_origins no CORSMiddleware.
 
         Em desenvolvimento, ["*"] costuma ser suficiente.
+
+```
 
 ```
