@@ -86,7 +86,7 @@ def _fetch_raw(url: str) -> tuple[int, str, str]:
 def _fetch_with_fallback(url: str) -> str | None:
     netloc = urlparse(url).netloc
 
-    # 1) Para CloudWalk, força Jina (melhor texto para RAG)
+    # Para CloudWalk, força Jina (melhor texto para RAG)
     if "cloudwalk.io" in netloc:
         try:
             prox = f"https://r.jina.ai/{url}"
@@ -99,7 +99,7 @@ def _fetch_with_fallback(url: str) -> str | None:
             pass
         return None  # se der ruim, deixa sem texto mesmo
 
-    # 2) Para outros domínios, mantém lógica antiga (HTML normal + fallback)
+    # Para outros domínios, mantém lógica antiga (HTML normal + fallback)
     try:
         status, ctype, html = _fetch_raw(url)
         if status == 200 and "text/html" in ctype:

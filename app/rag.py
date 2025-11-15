@@ -77,24 +77,9 @@ def build_retrieval_query(user_query: str) -> str:
 
 def retrieve(query: str, k=6):
     s = get_store()
-
-    # reescreve a query para casos como "valores da cloudwalk"
-    retr_query = build_retrieval_query(query)
-
-    # busca vetorial
-    D, I = s.index.search(s.embed(retr_query), k)
-    hits = [(s.texts[i], s.meta[i]) for i in I[0]]
-
-    # mistura BM25 para diversidade (usando a query reescrita também)
-    bm = s.bm25.get_top_n(retr_query.split(), list(range(len(s.texts))), n=k)
-    for i in bm:
-        par = (s.texts[i], s.meta[i])
-        if par not in hits:
-            hits.append(par)
-
-    # se a pergunta fala de CloudWalk, prioriza URLs da CloudWalk,
-    # especialmente our-pillars e code-of-ethics
     q_lower = query.lower()
+
+    # 0) Perguntas claramente sobre uso da marca / representantes
     precisa_etica_marca = (
         "uso da marca" in q_lower
         or "usar a marca" in q_lower
@@ -103,16 +88,50 @@ def retrieve(query: str, k=6):
         or ("marca" in q_lower and "cloudwalk" in q_lower and ("regras" in q_lower or "diretrizes" in q_lower))
     )
 
-    if precisa_etica_marca and not any(
-        "code-of-ethics-and-conduct" in str(u) for _, u in hits
-    ):
-        # procura um chunk cujo URL seja o código de ética e injeta no topo dos hits
-        for text, url in zip(s.texts, s.meta):
-            if "code-of-ethics-and-conduct" in str(url):
-                hits.insert(0, (text, url))
-                break
+    if precisa_etica_marca:
+        # pega TODOS os chunks cujo URL é o código de ética e conduta
+        etica_hits = [
+            (text, url)
+            for text, url in zip(s.texts, s.meta)
+            if "code-of-ethics-and-conduct" in str(url)
+        ]
+        if etica_hits:
+            # devolve só esses (até k)
+            return etica_hits[:k]
+        # se por algum motivo não achar, cai pro fluxo padrão abaixo
+
+    # 1) Fluxo padrão: reescreve query e faz busca vetorial + BM25
+    retr_query = build_retrieval_query(query)
+
+    D, I = s.index.search(s.embed(retr_query), k)
+    hits = [(s.texts[i], s.meta[i]) for i in I[0]]
+
+    bm = s.bm25.get_top_n(retr_query.split(), list(range(len(s.texts))), n=k)
+    for i in bm:
+        par = (s.texts[i], s.meta[i])
+        if par not in hits:
+            hits.append(par)
+
+    # 2) Se falar de CloudWalk, dá um boost pra URLs da CloudWalk
+    if "cloudwalk" in q_lower:
+        def sort_key(hit):
+            text, url = hit
+            u = str(url)
+            score = 0
+            if "cloudwalk.io" in u:
+                score -= 1
+            if ("missao" in q_lower or "missão" in q_lower) and "our-mission" in u:
+                score -= 3
+            if ("valor" in q_lower or "pilar" in q_lower) and (
+                "our-pillars" in u or "code-of-ethics" in u
+            ):
+                score -= 2
+            return score
+
+        hits.sort(key=sort_key)
 
     return hits[:k]
+
 
 def format_ctx(hits):
     ctx = []
