@@ -1,0 +1,30 @@
+# Ambiente virtual Python
+.venv/
+env/
+venv/
+
+# Arquivos de índice / dados grandes gerados
+data/raw/
+data/chunks/
+index/faiss/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
+# Flutter / Dart
+cloudwalk_chat/.dart_tool/
+cloudwalk_chat/.idea/
+cloudwalk_chat/build/
+cloudwalk_chat/ios/Pods/
+cloudwalk_chat/ios/.symlinks/
+cloudwalk_chat/android/.gradle/
+cloudwalk_chat/android/app/build/
+
+# Arquivos de configuração com secrets
+.env
+.env.*
+!*.env.example
