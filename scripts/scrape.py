@@ -29,6 +29,7 @@ START_URLS = [
     "https://textise.net/showtext.aspx?strURL=https://www.cloudwalk.io/#our-pillars",
     "https://www.cloudwalk.io/newsroom/luis-silva-cloudwalk-ceo-named-one-of-bloomberg-lineas-100-most-innovative-people-in-latin-america-in-2024/",
     "https://www.infinitepay.io/newsroom/luis-silva-fundador-da-cloudwalk-e-destaque-em-ranking-dos-mais-influentes-da-bloomberg-lineas/",
+    "https://ajuda.infinitepay.io/pt-BR/articles/7913300-como-comecar-a-vender-com-a-infinitepay",
 
 ]
 MAX_PAGES = 200

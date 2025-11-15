@@ -29,12 +29,12 @@ class _ChatPageState extends State<ChatPage> {
     return i >= 0 ? text.substring(0, i).trimRight() : text;
   }
 
-  /// Extrai URLs, limpa pontuação final e deduplica. Aceita String? (defensivo).
+  /// Extrai URLs, limpa pontuação final e deduplica
   List<Uri> _extractSources(String? md) {
     final text = (md ?? '').trim();
     if (text.isEmpty) return const <Uri>[];
 
-    // tenta focar só na seção "Fontes:"
+    // tenta focar só na seção Fontes:
     final i = text.toLowerCase().indexOf('fontes:');
     final slice = i >= 0 ? text.substring(i) : text;
 

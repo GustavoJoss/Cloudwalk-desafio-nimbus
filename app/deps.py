@@ -1,4 +1,3 @@
-# app/deps.py
 import os, json, pathlib, faiss, numpy as np, yaml
 from sentence_transformers import SentenceTransformer
 from rank_bm25 import BM25Okapi

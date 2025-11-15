@@ -26,6 +26,9 @@ sempre citando as fontes usadas na resposta.
 - [CORS](#cors)
 - [Para atualizar o sumário:](#para-atualizar-o-sumário)
 - [Exemplos de uso](#exemplos-de-uso)
+  - [Exemplo 1 – O que é a CloudWalk e qual a relação com a InfinitePay?](#exemplo-1--o-que-é-a-cloudwalk-e-qual-a-relação-com-a-infinitepay)
+  - [Exemplo 2 – Qual é a missão e quais são os valores da CloudWalk?](#exemplo-2--qual-é-a-missão-e-quais-são-os-valores-da-cloudwalk)
+  - [Exemplo 3 – Código de Ética / uso da marca](#exemplo-3--código-de-ética--uso-da-marca)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -349,40 +352,67 @@ cloudwalk-chatbot/
 
 ## Exemplos de uso
 
-    Exemplo 1 – O que é a CloudWalk e a relação com a InfinitePay?
+### Exemplo 1 – O que é a CloudWalk e qual a relação com a InfinitePay?
 
-    A CloudWalk é uma empresa brasileira de tecnologia financeira, sediada em São Paulo, que tem como missão
-    criar a melhor rede de pagamentos do planeta. A InfinitePay é a marca de soluções de pagamento da
-    CloudWalk voltada para pequenos e médios empreendedores no Brasil [...]
+**Pergunta sugerida**
 
-    Fontes:
-    [1] https://www.cloudwalk.io/#our-mission
+> O que é a CloudWalk e qual é a relação dela com a InfinitePay?
 
-    [2] https://www.cloudwalk.io/#facts
+**Comportamento esperado do chatbot**
 
-    [3] https://www.infinitepay.io/pt-br/
+- Explicar que a **CloudWalk** é uma empresa brasileira de tecnologia financeira, sediada em **São Paulo**,  
+  com a missão de criar a melhor rede de pagamentos do planeta.
+- Destacar que a empresa busca **democratizar a indústria financeira** e empoderar empreendedores
+  por meio de soluções tecnológicas inclusivas e transformadoras.
+- Deixar claro que a **InfinitePay** é a marca de soluções de pagamento da CloudWalk,
+  voltada para **pequenos e médios empreendedores** no Brasil.
+- Explicar que, quando um lojista usa maquininhas ou links de pagamento da InfinitePay,
+  ele está utilizando a **tecnologia e infraestrutura** desenvolvidas pela CloudWalk.
+- Citar as fontes usadas nos contextos, por exemplo:
+  - [1] Seção _Our Mission_ da CloudWalk
+  - [2] Seção de _Facts_ sobre a empresa
+  - [3] Site institucional da InfinitePay
 
-    Exemplo 2 – Missão e valores
+---
 
-    A missão da CloudWalk é criar a melhor rede de pagamentos do planeta – e depois de outros planetas –
-    democratizando a indústria financeira e empoderando empreendedores por meio de soluções tecnológicas
-    inclusivas e transformadoras. Seus pilares são Best Product, Customer Engagement e Disruptive Economics [...]
+### Exemplo 2 – Qual é a missão e quais são os valores da CloudWalk?
 
-    Fontes:
-    [1] https://www.cloudwalk.io/#our-mission
+**Pergunta sugerida**
 
-    [2] https://www.cloudwalk.io/#our-pillars
+> Qual é a missão da CloudWalk e quais são os seus valores/pilares?
 
-    Exemplo 3 – Código de Ética / uso da marca
+**Comportamento esperado do chatbot**
 
-    Quem representa a CloudWalk em eventos, entrevistas, podcasts ou painéis deve alinhar previamente com a
-    liderança e com o time responsável pela marca, seguindo as diretrizes de uso do logotipo, identidade
-    visual e demais ativos de marca [...]
+- Descrever a **missão** da CloudWalk como:
+  - criar a melhor rede de pagamentos do planeta – e depois de outros planetas –,
+  - democratizando a indústria financeira,
+  - empoderando empreendedores por meio de soluções tecnológicas inclusivas e transformadoras.
+- Explicar os **pilares/valores** da empresa, usando a nomenclatura original:
+  - **Best Product** – foco em construir o melhor produto possível em tecnologia, performance e experiência;
+  - **Customer Engagement** – clientes no centro das decisões, relacionamento de longo prazo e escuta ativa de feedback;
+  - **Disruptive Economics** – modelo econômico que reduz custos para lojistas e torna os pagamentos mais justos e acessíveis.
+- Deixar claro que o chatbot está **resumindo** os trechos dos contextos, sem inventar novos valores.
+- Citar as fontes usadas nos contextos, por exemplo:
+  - [1] Seção _Our Mission_ da CloudWalk
+  - [2] Seção _Our Pillars_ / valores da CloudWalk
 
-    Fontes:
-    [1] https://www.cloudwalk.io/code-of-ethics-and-conduct
+### Exemplo 3 – Código de Ética / uso da marca
 
-    As respostas variam conforme as páginas coletadas e o modelo configurado (OpenAI/Ollama).
+**Pergunta sugerida**
+
+> Quais são as regras para usar a marca da CloudWalk em eventos, entrevistas e materiais de comunicação?
+
+**Comportamento esperado do chatbot**
+
+    - Recuperar trechos do **Código de Ética e Conduta da CloudWalk**, em especial a parte de comunicação externa e uso da marca.
+    - Explicar que:
+    - colaboradores, parceiros, fornecedores e prestadores de serviço podem representar a marca,
+        desde que alinhem previamente com a liderança e o time responsável pela marca;
+    - o uso do logotipo, identidade visual e demais ativos de marca deve seguir os padrões definidos pela empresa.
+    - Organizar a resposta em **tópicos**, deixando claro que está resumindo as orientações presentes nos contextos.
+    - Não inventar nomes de pessoas nem regras adicionais que não estejam nos textos.
+    - Se em alguma situação não houver informação suficiente nos contextos sobre um detalhe específico,
+        o chatbot deve avisar que aquele ponto não aparece nos trechos recuperados, em vez de chutar.
 
 ---
 

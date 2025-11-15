@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Paleta inspirada na InfinitePay (ajuste se tiver o guia oficial):
+  // Paleta inspirada na InfinitePay
   static const primary = Color(0xFF6A39F0); // roxo
   static const primaryDark = Color(0xFF4C2AC0);
   static const accent = Color(0xFF00E1B0); // turquesa

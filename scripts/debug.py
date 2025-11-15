@@ -1,5 +1,3 @@
-# scripts/debug.py
-
 from app.deps import get_store
 from app.rag import retrieve
 

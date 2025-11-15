@@ -1,4 +1,3 @@
-# scripts/seed_pilares_jina.py
 import requests
 from app.deps import get_store
 
