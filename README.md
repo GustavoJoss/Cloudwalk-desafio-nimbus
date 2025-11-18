@@ -227,19 +227,19 @@ _Em produção, use o domínio real, por exemplo:_
 
   flutter pub get
 
-- Rodar em desenvolvimento:
+_Rodar em desenvolvimento:_
 
 - Web (Chrome/Edge):
 
   flutter run -d edge
 
-  # ou
+**ou**
 
-  flutter run -d chrome
+    flutter run -d chrome
 
-  # se der problema, use:
+**se der problema, use:**
 
-  flutter run -d web-server
+    flutter run -d web-server
 
 - Desktop (Windows):
 
@@ -369,13 +369,13 @@ _Lembre de subir o FastAPI antes, ou apontar o front para uma API já hospedada.
 
 ## Troubleshooting
 
-    - Chrome/Edge não abre com Flutter web
+- Chrome/Edge não abre com Flutter web
 
         Use flutter run -d web-server ou atualize o navegador.
 
-    - Ollama não responde
+- Ollama não responde
 
-        Verifique se o serviço está rodando:
+  Verifique se o serviço está rodando:
 
         ollama --version
 
@@ -383,17 +383,17 @@ _Lembre de subir o FastAPI antes, ou apontar o front para uma API já hospedada.
 
         Confirme se a porta 11434 está livre.
 
-    - Erro de proxy / timeout em downloads de modelos
+- Erro de proxy / timeout em downloads de modelos
 
-        Verifique se há proxy corporativo.
+  Verifique se há proxy corporativo.
 
-        Se estiver usando proxy, garanta que 127.0.0.1 e localhost estejam em NO_PROXY.
+  Se estiver usando proxy, garanta que 127.0.0.1 e localhost estejam em NO_PROXY.
 
-    - CORS bloqueando requisições
+- CORS bloqueando requisições
 
-        Confirme que o domínio do front está presente em allow_origins no CORSMiddleware.
+  Confirme que o domínio do front está presente em allow_origins no CORSMiddleware.
 
-        Em desenvolvimento, ["*"] costuma ser suficiente.
+  Em desenvolvimento, ["*"] costuma ser suficiente.
 
 ---
 
