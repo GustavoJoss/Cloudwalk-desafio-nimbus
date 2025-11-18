@@ -2,76 +2,60 @@
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 import logging
 from .deps import get_store
+import json
+from pathlib import Path
+from typing import List, Dict
+
+RULES_PATH = Path(__file__).parent / "config" / "augmentation_rules.json"
+try:
+    with RULES_PATH.open(encoding="utf-8") as f:
+        AUG_RULES: Dict[str, List[str]]
+except Exception:
+    AUG_RULES = {}  # fallback seguro
 
 # limite (segundos) de quanto vamos esperar pela resposta do LLM
 LLM_TIMEOUT_SECS = 90
 LLM_MAX_TOKENS = 600
 
-def build_retrieval_query(user_query: str) -> str:
+def get_expansions(user_query: str) -> list[str]:
     """
-    Reescreve a query do usuário para aproximar de palavras-chave
-    que existem nos textos (missão, valores, história, código de ética, uso da marca etc.).
+    Gera expansões dinâmicas baseadas na presença de palavras-chave.
+    Se a pergunta contiver termos definidos em AUG_RULES,
+    adiciona termos relacionados para melhorar a recuperação vetorial/BM25.
     """
     q = user_query.lower()
+    expansions = []
 
-    # se for claramente financeiro, não mexe
-    termos_financeiros = [
-        "preço", "preco", "taxa", "tarifa", "cobrança",
-        "cobranca", "faturamento", "receita", "valuation"
-    ]
-    if any(t in q for t in termos_financeiros):
+    for trigger, terms in AUG_RULES.items():
+        if trigger in q:
+            expansions.extend(terms)
+
+    # remove duplicados preservando ordem
+    seen = set()
+    unique = []
+    for t in expansions:
+        if t not in seen:
+            seen.add(t)
+            unique.append(t)
+
+    return unique
+
+def build_retrieval_query(user_query: str) -> str:
+    """
+    Reescreve a query de forma dinâmica e escalável.
+    - Mantém a pergunta original.
+    - Adiciona expansões relevantes.
+    - Não engessa a query com blocos fixos.
+    """
+    expansions = get_expansions(user_query)
+
+    if not expansions:
+        # sem expansões → usa só o texto original
         return user_query
-
-    # valores/pilares -> reforça pilares e cultura
-    if "valor" in q or "pilar" in q:
-        return (
-            "valores da CloudWalk enquanto cultura, pilares, princípios, filosofia, "
-            "our pillars, Best Product, Customer Engagement, Disruptive Economics, "
-            "código de ética, princípios culturais da CloudWalk"
-        )
-
-    # missão -> reforça our mission
-    if "missao" in q or "missão" in q or "mission" in q:
-        return (
-            "missão da CloudWalk criar a melhor rede de pagamentos na Terra e em outros planetas "
-            "democratizar a indústria financeira empoderar empreendedores soluções tecnológicas "
-            "inclusivas e transformadoras our mission"
-        )
     
-    # história / fundador
-    if "historia" in q or "história" in q or "fundador" in q or "fundada" in q:
-        return (
-            "história da CloudWalk fundador Luis Silva sede São Paulo fatos essenciais "
-            "fundação objetivo transformar a indústria de pagamentos relação com InfinitePay"
-        )
-
-    # código de ética / conduta
-    if "etica" in q or "ética" in q or "conduta" in q or "codigo de etica" in q:
-        return (
-            "código de ética e conduta da CloudWalk conflitos de interesse uso da marca "
-            "lavagem de dinheiro financiamento ao terrorismo ambiente de trabalho "
-            "integridade transparência compliance"
-        )
-
-    # uso da marca / representantes / regras da marca
-    if (
-        "uso da marca" in q
-        or "usar a marca" in q
-        or "usar a marca da cloudwalk" in q
-        or "representar a marca" in q
-        or "representar a cloudwalk" in q
-        or "representantes usar a marca" in q
-        or ("marca" in q and "cloudwalk" in q and ("regras" in q or "diretrizes" in q))
-    ):
-        return (
-            "código de ética e conduta da CloudWalk uso da marca e comunicação externa "
-            "quem representa a CloudWalk em eventos entrevistas podcasts ou painéis "
-            "uso do logotipo identidade visual e demais ativos de marca "
-            "alinhamento prévio com liderança e time responsável pela marca "
-            "diretrizes para representantes e uso da marca da CloudWalk"
-        )
-
-    return user_query
+    # junta tudo em um texto mais rico
+    expansion_text = " ".join(expansions)
+    return f"{user_query}\n\nTermos relacionados: {expansion_text}"
 
 
 

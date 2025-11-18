@@ -438,3 +438,20 @@ _A query augmentation foi refeita para ser:_
 - dinâmica (só adiciona termos relevantes)
 
 - baseada em contexto (intenção → expansões diferentes)
+
+Inicialmente, a query augmentation era feita de forma mais estática, com blocos fixos de texto para cada tipo de pergunta (missão, valores, ética, uso da marca etc.).
+
+Refatorei essa parte para um modelo **dinâmico e configurável**, baseado em um arquivo JSON (`app/config/augmentation_rules.json`), onde:
+
+- Cada _gatilho_ (por exemplo: `missao`, `valores`, `ética`, `marca`, `infinitepay`) é mapeado para uma lista de termos relacionados que aparecem nos textos oficiais (site, missão, pilares, código de ética, ajuda da InfinitePay, etc.).
+- Quando o usuário faz uma pergunta, a função `get_expansions()` percorre os gatilhos e adiciona apenas as expansões relevantes para aquela query.
+- A função `build_retrieval_query()` monta a query final combinando a pergunta original com os termos relacionados:
+
+```python
+    def build_retrieval_query(user_query: str) -> str:
+        expansions = get_expansions(user_query)
+        if not expansions:
+            return user_query
+        expansion_text = " ".join(expansions)
+        return f"{user_query}\n\nTermos relacionados: {expansion_text}"
+```
