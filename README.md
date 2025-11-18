@@ -45,32 +45,40 @@
 
 ```text
 cloudwalk-chatbot/
-├─ app/                     # FastAPI
-│  ├─ main.py               # API (/chat, /health, /version)
-│  ├─ rag.py                # Recuperação + prompt + chamada LLM
-│  ├─ deps.py               # Carrega FAISS/BM25/embeddings/LLM/prompts + auto build do índice
-│  ├─ prompts.yaml          # System prompt + estilos de resposta
-│  └─ seed_dataset.py       # SEED_DOCS (missão, pilares, ética, fatos essenciais)
-├─ scripts/
-│  ├─ scrape.py             # Coleta HTML e salva em data/raw/*.txt
-│  └─ build_index.py        # Chunking + embeddings (all-MiniLM-L6-v2) + FAISS
+├─ app/                          # Backend (FastAPI + RAG)
+│  ├─ main.py                    # Cria o FastAPI, CORS, startup e inclui os routers
+│  ├─ deps.py                    # Store: FAISS + BM25 + embeddings + LLM + prompts
+│  ├─ rag.py                     # Lógica de RAG (retrieve + generate_answer)
+│  ├─ schemas.py                 # Modelos Pydantic (ChatIn, ChatOut)
+│  ├─ prompts.yaml               # System prompt + estilos de resposta
+│  ├─ config/
+│  │  └─ augmentation_rules.json # Regras de query augmentation dinâmica (JSON)
+│  └─ api/
+│     ├─ chat.py                 # Rotas /chat (APIRouter)
+│     └─ health.py               # Rotas /health e /version
+├─ scripts/                      # Scripts auxiliares
+│  ├─ scrape.py                  # Scraping das páginas públicas
+│  ├─ build_index.py             # Chunking + embeddings + índice FAISS
+│  └─ ...
 ├─ data/
-│  ├─ raw/                  # Textos brutos do scrape
-│  └─ chunks/               # Chunks + metadados (jsonl)
+│  ├─ raw/                       # Textos brutos do scraping
+│  └─ chunks/                    # Chunks + metadados (jsonl)
 ├─ index/
-│  └─ faiss/                # Índice FAISS
-├─ cloudwalk_chat/          # Flutter app (front-end)
+│  └─ faiss/                     # Índice FAISS salvo em disco
+├─ cloudwalk_chat/               # Front-end Flutter
 │  ├─ lib/
-│  │  ├─ api/chat_api.dart  # Cliente HTTP -> FastAPI
-│  │  ├─ models/message.dart
-│  │  ├─ pages/chat_page.dart
-│  │  ├─ theme.dart         # Paleta InfinitePay (cores/tipografia)
-│  │  └─ main.dart          # App root
+│  │  ├─ api/chat_api.dart       # Cliente HTTP -> FastAPI
+│  │  ├─ pages/chat_page.dart    # Tela de chat
+│  │  ├─ theme.dart              # Tema inspirado na InfinitePay
+│  │  └─ main.dart               # App root
 │  └─ pubspec.yaml
-├─ .env                     # Config do LLM (OpenAI/Ollama) + ajustes
-└─ requirements.txt
+├─ .env                          # Configuração do LLM (OpenAI/Ollama)
+└─ requirements.txt              # Dependências do backend
 
 ```
+
+- o FastAPI está organizado em **routers + schemas**
+- a query augmentation agora é **configurável via `augmentation_rules.json`**
 
 ---
 
