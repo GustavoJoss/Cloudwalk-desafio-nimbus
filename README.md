@@ -272,6 +272,8 @@ _Lembre de subir o FastAPI antes, ou apontar o front para uma API já hospedada.
 
 - Indicador “digitando…” enquanto o LLM responde.
 
+---
+
 ## CORS
 
 - No app/main.py o CORS já está configurado para dev:
@@ -300,6 +302,8 @@ _Lembre de subir o FastAPI antes, ou apontar o front para uma API já hospedada.
     $env:NO_PROXY="127.0.0.1,localhost,.local"
 
 - Para proxies persistentes (HKCU\Environment), verifique as chaves de registro ou siga a documentação da sua empresa/Rede.
+
+---
 
 ## Exemplos de uso
 
