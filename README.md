@@ -92,13 +92,13 @@ _OpenAI API key ou Ollama rodando localmente (para LLM)_
 
   python -m venv .venv
 
-  # Windows
+- Windows
 
   .\.venv\Scripts\activate
 
-  # Linux/Mac
+- Linux/Mac
 
-  # source .venv/bin/activate
+  source .venv/bin/activate
 
   pip install -r requirements.txt
 
